@@ -44,14 +44,22 @@ class VisionTransformer(timm.models.vision_transformer.VisionTransformer):
             x = blk(x)
 
         if self.global_pool:
-            # x = x[:, 1:, :].mean(dim=1)  # global pool without cls token
-            # outcome = self.fc_norm(x)
-            outcome = x[:, 1:, :].mean(dim=1)  # leave norm to forward_head
+            x = x[:, 1:, :].mean(dim=1)  # global pool without cls token
+            outcome = self.fc_norm(x)
         else:
             x = self.norm(x)
             outcome = x[:, 0]
 
         return outcome
+    
+    def forward_head(self, x, pre_logits: bool = False):
+        if self.global_pool:
+            if pre_logits:
+                return x          # already a pre-logits vector
+            x = self.head_drop(x)
+            return self.head(x)
+        # fall back to timm’s default for the non-global-pool path
+        return super().forward_head(x, pre_logits)
 
 
 def vit_base_patch16(**kwargs):
