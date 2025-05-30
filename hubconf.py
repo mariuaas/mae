@@ -47,7 +47,7 @@ def mae_vit_huge_patch14(pretrained: bool = True, **kwargs):
 
 def mae_vit_base_patch16_in1k(pretrained: bool = True, **kwargs):
     # instantiate the ViT‐Base/16 classifier head
-    model = _vit_base16(num_classes=1000, global_pool=True, **kwargs)
+    model = _vit_base16(num_classes=1000, **kwargs)
     if pretrained:
         ckpt = torch.hub.load_state_dict_from_url(
             "https://dl.fbaipublicfiles.com/mae/finetune/mae_finetuned_vit_base.pth",
@@ -59,7 +59,7 @@ def mae_vit_base_patch16_in1k(pretrained: bool = True, **kwargs):
 
 
 def mae_vit_large_patch16_in1k(pretrained: bool = True, **kwargs):
-    model = _vit_large16(num_classes=1000, global_pool=True, **kwargs)
+    model = _vit_large16(num_classes=1000, **kwargs)
     if pretrained:
         ckpt = torch.hub.load_state_dict_from_url(
             "https://dl.fbaipublicfiles.com/mae/finetune/mae_finetuned_vit_large.pth",
@@ -71,7 +71,7 @@ def mae_vit_large_patch16_in1k(pretrained: bool = True, **kwargs):
 
 
 def mae_vit_huge_patch14_in1k(pretrained: bool = True, **kwargs):
-    model = _vit_huge14(num_classes=1000, global_pool=True, **kwargs)
+    model = _vit_huge14(num_classes=1000, **kwargs)
     if pretrained:
         ckpt = torch.hub.load_state_dict_from_url(
             "https://dl.fbaipublicfiles.com/mae/finetune/mae_finetuned_vit_huge.pth",
