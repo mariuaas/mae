@@ -39,6 +39,7 @@ class VisionTransformer(timm.models.vision_transformer.VisionTransformer):
         x = torch.cat((cls_tokens, x), dim=1)
         x = x + self.pos_embed
         x = self.pos_drop(x)
+        x = self.patch_drop(x)
 
         for blk in self.blocks:
             x = blk(x)
